@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.sensor.RomiGyro;
 import edu.wpi.first.math.controller.PIDController;
 
 public class RomiDrivetrain extends SubsystemBase {
@@ -28,6 +29,8 @@ public class RomiDrivetrain extends SubsystemBase {
   private final DifferentialDrive m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
   public final PIDController PID = new PIDController(0.3,0,0);
+  public final RomiGyro m_gyroscope = new RomiGyro();
+
 
   /** Creates a new RomiDrivetrain. */
   public RomiDrivetrain() {
@@ -58,7 +61,10 @@ public class RomiDrivetrain extends SubsystemBase {
   }
 
   public void straightLineWithPID(){
-    
+    double pidAdjust = PID.calculate(-m_gyroscope.getAngleZ(),0);
+    m_diffDrive.arcadeDrive(0.7, pidAdjust);
+
+
   }
 
   @Override
