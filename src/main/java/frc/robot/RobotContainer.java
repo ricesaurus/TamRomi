@@ -5,10 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.DriveWithController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.RomiDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.StraightLine;
+import frc.robot.commands.Forward;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,10 +23,20 @@ public class RobotContainer {
   private final RomiDrivetrain m_romiDrivetrain = new RomiDrivetrain();
   private final StraightLine m_straightLine = new StraightLine(m_romiDrivetrain,24);
 
+  // example from kevin / new stuff/ testing
+  private DriveWithController m_controldrive = new DriveWithController(m_romiDrivetrain);
+  private final Forward m_forward = new Forward(m_romiDrivetrain,5);
+  //end of new stuff / testing
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_romiDrivetrain);
+
+  //Xboxcontroller object for DriveWithController file
+  public static final XboxController m_xboxController = new XboxController(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    //Kevin showed this example not understood yet
+     m_romiDrivetrain.setDefaultCommand(m_controldrive);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -35,7 +47,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

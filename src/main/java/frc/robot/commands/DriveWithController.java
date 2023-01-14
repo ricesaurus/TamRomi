@@ -6,32 +6,41 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.RomiDrivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
+//MADE XBOXCONTROLLER OBJECT IN ROBOT CONTAINER, but didn't import Xbox class here because of "never used" message
+//ALSO ROMI DRIVE TRAIN IN ROBOTCONTAINER
 
-/** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
+public class DriveWithController extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final RomiDrivetrain m_subsystem;
+  private final RomiDrivetrain m_db;
 
   /**
-   * Creates a new ExampleCommand.
+   * 
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(RomiDrivetrain subsystem) {
-    m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+  public DriveWithController(RomiDrivetrain db) {
+    m_db = db;
+    addRequirements(db);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_db.resetEncoders();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-  }
+    //First parameter gets left joystick Y values (1 to -1 )
+    //Second parameter gets right joystick X values (1 to -1)
+    //Made static accessible XboxController in Robot Container with default port 0 (Kevin showed)
+    m_db.arcadeDrive(RobotContainer.m_xboxController.getLeftY(), RobotContainer.m_xboxController.getRightX());
+
+    }
+  
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -43,3 +52,6 @@ public class ExampleCommand extends CommandBase {
     return false;
   }
 }
+
+
+

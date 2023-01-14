@@ -59,6 +59,9 @@ public class RomiDrivetrain extends SubsystemBase {
   public double getRightDistanceInch() {
     return m_rightEncoder.getDistance();
   }
+  public double getAverageDistanceInch(){
+    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance())/2;
+  }
 
   public void straightLineWithPID(){
     double pidAdjust = PID.calculate(-m_gyroscope.getAngleZ(),0);

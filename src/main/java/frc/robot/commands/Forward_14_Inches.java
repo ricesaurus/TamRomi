@@ -7,39 +7,45 @@ package frc.robot.commands;
 import frc.robot.subsystems.RomiDrivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
+public class Forward_14_Inches extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final RomiDrivetrain m_subsystem;
+  private final RomiDrivetrain m_db;
+  //Hardcoding the distance into the Forward_14_Inches class
+  private double distance = 14;
 
   /**
-   * Creates a new ExampleCommand.
+   * 
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(RomiDrivetrain subsystem) {
-    m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+  public Forward_14_Inches(RomiDrivetrain db) {
+    m_db = db;
+    addRequirements(db);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_db.resetEncoders();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    //StraightLineWithPID from Robot Container, same as moving straight but PID adjusted
+    m_db.straightLineWithPID();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_db.resetEncoders();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    //Method getting average from left and right encoders, when it's greater than distance input it ends
+    return m_db.getAverageDistanceInch() > distance;
   }
 }
