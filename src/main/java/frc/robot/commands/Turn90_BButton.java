@@ -37,6 +37,7 @@ public class Turn90_BButton extends CommandBase {
   @Override
   public void execute() {
     //turnRightWithPID from RomiDrivetrain file, PID adjusted 90 degrees
+    //access Xbox controller static object, then its' method
     if (RobotContainer.m_xboxController.getBButton()){
       m_db.turnRightWithPID();
     }
@@ -45,7 +46,7 @@ public class Turn90_BButton extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //resetting gyro instead of encoders
+    //resetting gyro angle and encoders 
     m_db.resetGyro();
     m_db.resetEncoders();
   }
@@ -53,7 +54,7 @@ public class Turn90_BButton extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
+    //check if the gyro angle hits 90 degrees then stops 
     return (m_db.getGyroAngle() >= angle);
   }
 }
