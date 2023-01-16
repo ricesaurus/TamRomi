@@ -27,8 +27,8 @@ public class RomiDrivetrain extends SubsystemBase {
 
   // Set up the differential drive controller
   private final DifferentialDrive m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
-
-  public final PIDController PID = new PIDController(0.3,0,0);
+//Set Kp to 0.1, the rest to 0
+  public final PIDController PID = new PIDController(0.1,0,0);
   public final RomiGyro m_gyroscope = new RomiGyro();
 
 
@@ -43,14 +43,7 @@ public class RomiDrivetrain extends SubsystemBase {
     m_rightMotor.setInverted(true);
   }
 
-  public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
-    m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
-  }
-
-  public void resetEncoders() {
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
-  }
+  
 
   public double getLeftDistanceInch() {
     return m_leftEncoder.getDistance();
@@ -62,12 +55,35 @@ public class RomiDrivetrain extends SubsystemBase {
   public double getAverageDistanceInch(){
     return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance())/2;
   }
+//get Gyro angle made accessible through RomiDrivetrain object 
+  public double getGyroAngle(){
+    return m_gyroscope.getAngleZ();
+  }
+  public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
+    m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
+  }
+
+  public void resetEncoders() {
+    m_leftEncoder.reset();
+    m_rightEncoder.reset();
+  }
+  //method to reset gyro made accessible through RomiDrivetrain object
+  public void resetGyro(){
+    m_gyroscope.reset();
+  }
 
   public void straightLineWithPID(){
     double pidAdjust = PID.calculate(-m_gyroscope.getAngleZ(),0);
     m_diffDrive.arcadeDrive(0.7, pidAdjust);
 
 
+  }
+  
+  public void turnRightWithPID(){
+    //PID calculate to adjust to 90 degree angle 
+    //assuming 90 degrees is right
+    double pidAdjust = PID.calculate(-m_gyroscope.getAngleZ(),90);
+    m_diffDrive.arcadeDrive(0,pidAdjust);
   }
 
   @Override

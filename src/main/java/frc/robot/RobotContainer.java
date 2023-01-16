@@ -9,7 +9,8 @@ import frc.robot.commands.DriveWithController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.RomiDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.StraightLine;
+import frc.robot.commands.StraightLine_AButton;
+import frc.robot.commands.Turn90_BButton;
 import frc.robot.commands.Forward;
 
 /**
@@ -21,9 +22,9 @@ import frc.robot.commands.Forward;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final RomiDrivetrain m_romiDrivetrain = new RomiDrivetrain();
-  private final StraightLine m_straightLine = new StraightLine(m_romiDrivetrain,24);
-
-  // example from kevin / new stuff/ testing
+  //Should these two commands below have m_ prefix? 
+  private final StraightLine_AButton m_straightLine = new StraightLine_AButton(m_romiDrivetrain,24);
+  private final Turn90_BButton m_turnRight = new Turn90_BButton(m_romiDrivetrain);
   private DriveWithController m_controldrive = new DriveWithController(m_romiDrivetrain);
   private final Forward m_forward = new Forward(m_romiDrivetrain,5);
   //end of new stuff / testing
