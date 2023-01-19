@@ -10,6 +10,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.RomiDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.StraightLine_AButton;
+import frc.robot.commands.Turn90;
 import frc.robot.commands.Turn90_BButton;
 import frc.robot.commands.Forward;
 
@@ -57,7 +58,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_straightLine;
+    // An Exam(pleCommand will run in autonomous
+    return new Forward(m_romiDrivetrain,10).andThen(new Turn90(m_romiDrivetrain)).andThen(new Forward(m_romiDrivetrain,10)).andThen(new Turn90(m_romiDrivetrain)).andThen(new Forward(m_romiDrivetrain,10).andThen(new Turn90(m_romiDrivetrain)).andThen(new Forward(m_romiDrivetrain, 10)));
   }
 }
