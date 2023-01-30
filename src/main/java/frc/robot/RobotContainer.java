@@ -59,6 +59,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An Exam(pleCommand will run in autonomous
-    return new Forward(m_romiDrivetrain,10).andThen(new Turn90(m_romiDrivetrain)).andThen(new Forward(m_romiDrivetrain,10)).andThen(new Turn90(m_romiDrivetrain)).andThen(new Forward(m_romiDrivetrain,10).andThen(new Turn90(m_romiDrivetrain)).andThen(new Forward(m_romiDrivetrain, 10)));
+    //return new Forward(m_romiDrivetrain,10).andThen(new Turn90(m_romiDrivetrain)).andThen(new Forward(m_romiDrivetrain,10)).andThen(new Turn90(m_romiDrivetrain)).andThen(new Forward(m_romiDrivetrain,10).andThen(new Turn90(m_romiDrivetrain)).andThen(new Forward(m_romiDrivetrain, 10)));
+    return m_controldrive;
   }
 }
